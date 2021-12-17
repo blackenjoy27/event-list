@@ -1,0 +1,52 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: #9e28b0;
+}
+.svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.svg path {
+  fill: #fff;
+}
+
+.h1 {
+  font-size: 1.5rem;
+}
+.tab_link {
+  color: #fff;
+  text-decoration: none;
+  margin: 0rem 0.5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 25%;
+}
+.text_field {
+  width: 100%;
+  margin: 1.5rem 0rem;
+}
+.label {
+  margin: 0.5rem 0rem;
+}
+
+.profile_area {
+  display: flex;
+  align-items: center;
+}
