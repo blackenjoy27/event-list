@@ -7,8 +7,10 @@ import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { connect } from "react-redux";
 
-export default function MenuAppBar(props) {
+function MenuAppBar(props) {
+    const { username } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
 
 
@@ -36,7 +38,7 @@ export default function MenuAppBar(props) {
 
                     <div className='profile_area'>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            {`Welcome, `}
+                            {`Welcome, ${username}`}
                         </Typography>
                         <IconButton
                             size="large"
@@ -75,3 +77,9 @@ export default function MenuAppBar(props) {
         </Box>
     );
 }
+
+export default connect((state) => {
+    return {
+        username: state.username
+    }
+})(MenuAppBar);
