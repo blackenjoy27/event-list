@@ -50,3 +50,11 @@ form {
   display: flex;
   align-items: center;
 }
+
+.message {
+  opacity: 0;
+}
+
+.show_message {
+  opacity: 1;
+}

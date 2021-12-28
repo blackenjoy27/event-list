@@ -1,52 +1,33 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { connect } from "react-redux";
-import { storeUserInfo } from "../action";
 
-
-export const withFormFeature = (WrapperComponent) => connect(() => { }, { storeUserInfo })(
-    class Component extends React.Component {
-        state = {
+export const withFormFeature = (WrapperComponent) => class Component extends React.Component {
+    state = {
+        username: "",
+        password: "",
+        confirmPassword: "",
+    }
+    handleEditing = (e) => {
+        this.setState({ [e.target.name]: e.target.value })
+    }
+    resetState = () => {
+        this.setState({
             username: "",
             password: "",
             confirmPassword: ""
-        }
-        handleEditing = (e) => {
-            this.setState({ [e.target.name]: e.target.value })
-        }
-        resetState = () => {
-            this.setState({
-                username: "",
-                password: "",
-                confirmPassword: ""
-            })
-        }
-        render() {
-            return (
-                <WrapperComponent
-                    userInfo={this.state}
-                    handleEditing={this.handleEditing}
-                    resetState={this.resetState}
-                    push={this.props.push}
-                    storeUserInfo={this.props.storeUserInfo}>
-                    <header>
-                        <Box sx={{ flexGrow: 1 }}>
-                            <AppBar position="static">
-                                <Toolbar>
-                                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                                        Event List
-                                    </Typography>
-                                    <Link className="tab_link" to="/login">LOGIN</Link>
-                                    <Link className="tab_link" to="/register">SIGNUP</Link>
-                                </Toolbar>
-                            </AppBar>
-                        </Box>
-                    </header>
-                </WrapperComponent>
-            )
-        }
-    })
+        })
+    }
+    render() {
+        return (
+            <WrapperComponent
+                userInfo={this.state}
+                handleEditing={this.handleEditing}
+                resetState={this.resetState}
+                push={this.props.push}
+            >
+                <div className="container">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="lock" className="svg svg-inline--fa fa-lock fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z"></path></svg>
+                </div>
+            </WrapperComponent>
+        )
+    }
+}
