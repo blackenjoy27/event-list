@@ -17,8 +17,11 @@ class Login extends React.Component {
         axios.post("http://localhost:4000/api/user/login", { username, password })
             .then(({ data }) => {
                 const userInfo = data.data;
-                const { userId, role, username } = userInfo;
+                const { userId, role, username, token: mu } = userInfo;
+                localStorage.setItem("token", mu);
+                //store copy of the token in local storage
                 console.log("login successfully, data:", data);
+
                 this.props.storeUserInfo({ userId, role, username });
                 this.props.resetState();
                 this.props.push("/userpage");
@@ -51,6 +54,7 @@ class Login extends React.Component {
                         <TextField
                             id="filled-helperText"
                             label="Password"
+                            type="password"
                             className="text_field"
                             name="password"
                             value={this.props.userInfo.password}

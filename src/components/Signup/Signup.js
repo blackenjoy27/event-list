@@ -27,7 +27,6 @@ class Signup extends React.Component {
 
     }
     render() {
-        console.log(this.props);
         return (
             <div>
                 {this.props.children}
@@ -50,6 +49,7 @@ class Signup extends React.Component {
                         <TextField
                             id="filled-helperText"
                             label="Password"
+                            type="password"
                             className="text_field"
                             name="password"
                             value={this.props.userInfo.password}
@@ -60,6 +60,7 @@ class Signup extends React.Component {
                         <TextField
                             id="filled-helperText"
                             label="Confirm Password"
+                            type="password"
                             className="text_field"
                             name="confirmPassword"
                             value={this.props.userInfo.confirmPassword}
