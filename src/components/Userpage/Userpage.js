@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import { connect } from "react-redux";
 
 
-import { loadEvents, promptNewEvent, addNewEvent, editEvent, deleteEvent } from "../../action";
+import { loadEvents, promptNewEvent, addNewEvent, editEvent, deleteEvent, storeUserInfo } from "../../action";
 
 function createData(from, to, content, isCompleted) {
     return { from, to, content, isCompleted };
@@ -31,10 +31,16 @@ function Userpage(props) {
     const [event, setEvent] = React.useState(null)
 
 
-    const { events, loadEvents, promptNewEvent, addNewEvent, editEvent, deleteEvent } = props;
+    const { username, events, loadEvents, promptNewEvent, addNewEvent, editEvent, deleteEvent, storeUserInfo } = props;
 
     React.useEffect(() => {
         loadEvents();
+        if (!username) {
+            const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+            const { userId, role, username } = userInfo;
+            storeUserInfo({ userId, role, username });
+        }
+
     }, [])
 
     React.useEffect(() => {
@@ -121,7 +127,7 @@ function Userpage(props) {
                             if (row._id === "new_event") {
                                 return (
                                     <TableRow
-                                        key={row.name}
+                                        key={row._id}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
                                         <TableCell component="th" scope="row" align="center">
@@ -160,7 +166,7 @@ function Userpage(props) {
                             else if (editEventId === row._id) {
                                 return (
                                     <TableRow
-                                        key={row.name}
+                                        key={row._id}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
                                         <TableCell component="th" scope="row" align="center">
@@ -201,7 +207,7 @@ function Userpage(props) {
                             else {
                                 return (
                                     <TableRow
-                                        key={row.name}
+                                        key={row._id}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
                                         <TableCell component="th" scope="row" align="center">
@@ -228,8 +234,9 @@ function Userpage(props) {
 
 export default connect((state) => {
     return {
+        username: state.username,
         events: state.events
     }
-}, { loadEvents, promptNewEvent, addNewEvent, editEvent, deleteEvent })(Userpage);
+}, { loadEvents, promptNewEvent, addNewEvent, editEvent, deleteEvent, storeUserInfo })(Userpage);
 
 

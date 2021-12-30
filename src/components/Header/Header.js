@@ -36,7 +36,6 @@ class Header extends React.Component {
         this.setState({ anchorEl: null });
     };
     handleLogout = () => {
-        localStorage.removeItem("token");
         this.props.push("/login");
         this.props.logOut("LOGOUT_SUCCESSFULLY");
         // clear the application state;

@@ -20,6 +20,7 @@ const Login = connect()(class Component extends React.Component {
             .then(({ data }) => {
                 const userInfo = data.data;
                 const { userId, role, username, token } = userInfo;
+                localStorage.setItem("userInfo", JSON.stringify({ userId, role, username }));
                 localStorage.setItem("token", token);
                 //store copy of the token in local storage
                 console.log("login successfully, data:", data);

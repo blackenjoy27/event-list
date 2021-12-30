@@ -15,6 +15,8 @@ export const storeUserInfo = (userInfo) => {
 }
 
 export const logOut = (message) => {
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("token");
     return { type: LOGOUT_SUCCESSFULLY, message }
 }
 
