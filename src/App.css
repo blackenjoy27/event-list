@@ -58,3 +58,8 @@ form {
 .show_message {
   opacity: 1;
 }
+
+.user_data_container {
+  width: 80%;
+  margin: auto;
+}

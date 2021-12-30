@@ -44,7 +44,7 @@ class Header extends React.Component {
 
     componentDidUpdate(preProp, preState) {
         if (preProp.displayAlert !== this.props.displayAlert) {
-            if (this.props.alertMessage === "LOGIN_SUCCESSFULLY" || this.props.alertMessage === "LOGOUT_SUCCESSFULLY") {
+            if (this.props.alertMessage.toLowerCase().includes("successfully")) {
                 this.setState({ severity: "success" })
             } else {
                 this.setState({ severity: "error" });

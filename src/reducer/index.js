@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESSFULLY, LOGOUT_SUCCESSFULLY, ALERT_MESSAGE_SUCCESSFULLY, SIGNUP_SUCCESSFULLY } from "../action";
+import { LOGIN_SUCCESSFULLY, LOGOUT_SUCCESSFULLY, ALERT_MESSAGE_SUCCESSFULLY, LOAD_EVENTS_SUCCESSFULLY, PROMPT_NEW_EVENT, REPLACE_EVENT_SUCCESSFULLY, EDIT_EVENT_SUCCESSFULLY } from "../action";
 
 const initialState = {
     userId: 0,
@@ -6,6 +6,7 @@ const initialState = {
     role: "",
     displayAlert: false,
     alertMessage: "",
+    events: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -33,6 +34,49 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 displayAlert: !state.displayAlert,
                 alertMessage: action.message
+            }
+        }
+        case LOAD_EVENTS_SUCCESSFULLY: {
+            return {
+                ...state,
+                events: action.events.map(event => {
+                    return {
+                        ...event,
+                        from: event.from.substring(0, event.from.length - 8),
+                        to: event.to.substring(0, event.to.length - 8),
+                    }
+                })
+            }
+        }
+        case PROMPT_NEW_EVENT: {
+            return {
+                ...state,
+                events: [action.event, ...state.events]
+            }
+        }
+
+        case REPLACE_EVENT_SUCCESSFULLY: {
+            const tempEvents = state.events.map(event => {
+                if (event._id === "new_event") {
+                    return action.newEvent
+                }
+                return event
+            })
+            return {
+                ...state,
+                events: tempEvents
+            }
+        }
+        case EDIT_EVENT_SUCCESSFULLY: {
+            const tempEvents = state.events.map(event => {
+                if (event._id === action.id) {
+                    return action.data
+                }
+                return event;
+            })
+            return {
+                ...state,
+                events: tempEvents
             }
         }
         default:
